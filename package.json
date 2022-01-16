@@ -1,0 +1,31 @@
+{
+  "name": "geekbrains_type_script_hw",
+  "version": "1.0.0",
+  "description": "geekbrains_type_script_hw",
+  "type": "module",
+  "scripts": {
+    "build": " rd -r public\\scripts 2>null & tsc",
+    "build:dev": "rd -r public\\scripts 2>null & tsc -p tsconfig-dev.json",
+    "start": "node public/scripts/index.js",
+    "start:devExample": "http-server -p 3000",
+    "lint": "eslint src --ext .js --ext .ts",
+    "lint-fix": "eslint src --ext .js --ext .ts --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xIgor1982/geekbrains_type_script_hw.git"
+  },
+  "author": "Хрущ Игорь Александрович, 1982 г.р.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xIgor1982/geekbrains_type_script_hw/issues"
+  },
+  "homepage": "https://github.com/xIgor1982/geekbrains_type_script_hw#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "eslint": "^8.7.0",
+    "http-server": "^14.1.0",
+    "typescript": "^4.5.4"
+  }
+}
