@@ -1,19 +1,13 @@
-import {renderBlock} from './lib.js'
+import {renderBlock} from './lib.js';
+import {getDateStart, getDateEnd, convertDate} from './utilites.js';
 
-export function renderSearchFormBlock(dateCheckIn: string, dateExit: string) {
-  const dateOne = new Date(dateCheckIn);
-  dateOne.setDate(dateOne.getDate() + 1);
-  const dateTwo = new Date(dateExit);
-  const maxDate = new Date(dateOne.getFullYear(), dateOne.getMonth() + 2, 0);
+const initDateStart:Date = new Date();
+const initDateEnd:Date = getDateEnd(initDateStart);
 
-  const textDateOne = `0${dateOne.getDay()}-0${dateOne.getMonth()}-${dateOne.getFullYear()}`;
-  const textDateTwo = `0${dateTwo.getDay()}-0${dateTwo.getMonth()}-${dateTwo.getFullYear()}`;
-  const textMaxDate = `0${maxDate.getDay()}-0${maxDate.getMonth()}-${maxDate.getFullYear()}`;
-  // const numPrice = new Date(document.getElementById('check-out-date').value - document.getElementById('check-in-date').value)
-  //
-  // console.log(document.getElementById('check-out-date').value)
-  // console.log(document.getElementById('check-in-date').value)
-  console.log('dateOne.toLocaleDateString() => ' + dateOne.toLocaleDateString());
+export function renderSearchFormBlock(dateStart: Date = initDateStart, dateEnd: Date = initDateEnd) {
+  const dateStartFunc:Date = getDateStart(dateStart);
+  const dateEndFunc:Date = getDateStart(dateEnd);
+  const dateMaxEndFunc:Date = getDateEnd(dateStart);
 
   renderBlock(
     'search-form-block',
@@ -36,21 +30,26 @@ export function renderSearchFormBlock(dateCheckIn: string, dateExit: string) {
           <div class="row">
             <div>
                 <label for="check-in-date">Дата заезда</label>
-                <input id="check-in-date" type="date" value="${dateOne}" min="${dateOne.toLocaleDateString()}" max="${maxDate.toLocaleDateString()}" name="checkin" />
-<!--                <input id="check-in-date" type="date" value="${dateOne.toLocaleDateString()}" min="${dateOne.toLocaleDateString()}" max="${maxDate.toLocaleDateString()}" name="checkin" />-->
-<!--                <input id="check-in-date" type="date" value="${dateOne}" min="${dateOne}" max="${maxDate}" name="checkin" />-->
-<!--                <input id="check-in-date" type="date" value="${textDateOne}" min="${textDateOne}" max="${textMaxDate}" name="checkin" />-->
+                <input 
+                    id="check-in-date" 
+                    type="date" 
+                    value=${convertDate(dateStartFunc)} 
+                    min=${convertDate(dateStartFunc)} 
+                    max=${convertDate(dateMaxEndFunc)} 
+                    name="checkin" />
               </div>
               <div>
                 <label for="check-out-date">Дата выезда</label>
-                <input id="check-out-date" type="date" value="${dateTwo}" min="${dateOne.toLocaleDateString()}" max="${maxDate.toLocaleDateString()}"" name="checkout" />
-<!--                <input id="check-out-date" type="date" value="${dateTwo.toLocaleDateString()}" min="${dateOne.toLocaleDateString()}" max="${maxDate.toLocaleDateString()}"" name="checkout" />-->
-<!--                <input id="check-out-date" type="date" value="${dateTwo}" min="${dateOne}" max="${maxDate}"" name="checkout" />-->
-<!--                <input id="check-out-date" type="date" value="${textDateTwo}" min="${textDateOne}" max="${textMaxDate}"" name="checkout" />-->
+                <input 
+                    id="check-out-date" 
+                    type="date" 
+                    value=${convertDate(dateMaxEndFunc)} 
+                    min=${convertDate(dateStartFunc)} 
+                    max=${convertDate(dateMaxEndFunc)} 
+                    name="checkout" />
               </div>
               <div>
                 <label for="max-price">Макс. цена суток</label>
-<!--                <input id="max-price" type="text" value="$...{numPrice}" name="price" class="max-price" />-->
                 <input id="max-price" type="text" value="" name="price" class="max-price" />
               </div>
               <div>
