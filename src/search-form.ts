@@ -1,13 +1,13 @@
 import {renderBlock} from './lib.js';
-import {getDateStart, getDateEnd, convertDate} from './utilites.js';
+import {getDateStart, getDateEnd, convertDate, increaseDate} from './utilites.js';
 
-const initDateStart:Date = new Date();
+const initDateStart:Date = increaseDate(new Date(), 1);
 const initDateEnd:Date = getDateEnd(initDateStart);
 
 export function renderSearchFormBlock(dateStart: Date = initDateStart, dateEnd: Date = initDateEnd) {
   const dateStartFunc:Date = getDateStart(dateStart);
-  const dateEndFunc:Date = getDateStart(dateEnd);
-  const dateMaxEndFunc:Date = getDateEnd(dateStart);
+  const dateEndFunc:Date = getDateStart(dateStartFunc);
+  const dateMaxEndFunc:Date = increaseDate(getDateEnd(dateStart), 1);
 
   renderBlock(
     'search-form-block',
@@ -43,7 +43,7 @@ export function renderSearchFormBlock(dateStart: Date = initDateStart, dateEnd: 
                 <input 
                     id="check-out-date" 
                     type="date" 
-                    value=${convertDate(dateMaxEndFunc)} 
+                    value=${convertDate(increaseDate(dateEndFunc, 2))} 
                     min=${convertDate(dateStartFunc)} 
                     max=${convertDate(dateMaxEndFunc)} 
                     name="checkout" />
