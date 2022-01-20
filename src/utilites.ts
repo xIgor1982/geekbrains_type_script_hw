@@ -1,3 +1,5 @@
+import {User} from "./user";
+
 export const getDateStart = (date: Date): Date => {
   const dateCheckIn: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
   // dateCheckIn.setDate(date.getDate() + 1);
@@ -10,7 +12,7 @@ export const getDateEnd = (dateStart: Date): Date => {
 }
 
 export const convertDate = (date:Date):string => {
-  console.log(`convertDate(${date}) => ${date.toISOString().slice(0, 10)}`);
+  // console.log(`convertDate(${date}) => ${date.toISOString().slice(0, 10)}`);
   return date.toISOString().slice(0, 10);
 }
 
@@ -18,4 +20,3 @@ export const increaseDate = (date:Date, num:number):Date => {
   const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + num);
   return newDate;
 }
-
