@@ -20,3 +20,12 @@ export const increaseDate = (date:Date, num:number):Date => {
   const newDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + num);
   return newDate;
 }
+
+export interface Place {
+  id: number;
+  image: string;
+  name: string;
+  description: string;
+  bookedDates: number[];
+  price: number;
+}

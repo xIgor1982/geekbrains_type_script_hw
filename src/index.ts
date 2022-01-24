@@ -2,6 +2,7 @@ import {renderSearchFormBlock} from './search-form.js'
 import {renderSearchStubBlock} from './search-results.js'
 import {renderUserBlock, User} from './user.js'
 import {renderToast} from './lib.js'
+import {requestDataRealty} from "./requestDataRealty.js";
 
 const randomFavoriteItem = Math.floor(Math.random() * 10) + 1;
 
@@ -17,4 +18,9 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   )
+
+  const avatarInfo = document.querySelector('#avatar_info');
+  avatarInfo.addEventListener('click', () =>{
+    requestDataRealty(randomFavoriteItem)
+  })
 })

@@ -91,7 +91,9 @@ export function renderSearchFormBlock(data: SearchFormData = initDateSearchFormB
                     class="max-price" />
               </div>
               <div>
-                <div><button>Найти</button></div>
+                <div>
+                    <button>Найти</button>
+                </div>
               </div>
           </div>
       </fieldset>

@@ -32,10 +32,18 @@ export class User {
 }
 
 //1. Первая getUserData
+//Замечания ко 2 заданию прочитал. Не знаю правильно ли переделал.
 export const getUserData = (): User => {
   try {
     const user: unknown = JSON.parse(localStorage.getItem('user'))
-    return new User(user['username'], user['avatarUrl'])
+    // return new User(user['username'], user['avatarUrl'])
+    Object.setPrototypeOf(user, User.prototype)
+
+    if(user instanceof User) {
+      return user
+    } else {
+      new Error('Сведений о пользователе в localstorage нет')
+    }
   } catch (err) {
     console.log(`Сведений о пользователе в localstorage нет: -> ${err}`)
   }
@@ -59,9 +67,9 @@ export function renderUserBlock(name: string, avatar: string, countFavorite?: nu
   renderBlock(
     'user-block',
     `
-    <div class="header-container">
+    <div class="header-container"}>
       <img class="avatar" src="${avatar}" alt="${name}" />
-      <div class="info">
+      <div class="info" id="avatar_info" style="cursor: pointer">
           <p class="name">${name}</p>
           <p class="fav">
             <i class="heart-icon${isFavorite}"></i>${favorite}
@@ -71,3 +79,5 @@ export function renderUserBlock(name: string, avatar: string, countFavorite?: nu
     `
   )
 }
+
+
