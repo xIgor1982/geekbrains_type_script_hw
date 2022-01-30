@@ -32,12 +32,14 @@ export class User {
 }
 
 //1. Первая getUserData
-export const getUserData = (): User => {
+export const getUserData = (): User | void => {
   try {
-    const user: {[key : string] : string} = JSON.parse(localStorage.getItem('user'))
-    const username:any = user['username']
-    const avatarUrl:any = user['avatarUrl']
-    return new User(username, avatarUrl)
+    const dataLocalStorage: any = localStorage.getItem('user')
+    const user: { [key: string]: string } = JSON.parse(dataLocalStorage)
+    const username: any | null = user['username']
+    const avatarUrl: any | null = user['avatarUrl']
+    const resultUser: User = new User(username, avatarUrl)
+    return resultUser
   } catch (err) {
     console.log(`Сведений о пользователе в localstorage нет: -> ${err}`)
   }
@@ -46,8 +48,9 @@ export const getUserData = (): User => {
 //2. Вторая функция getFavoritesAmount
 export const getFavoritesAmount = (): number => {
   try {
-    const amount: unknown = localStorage.getItem('favoritesAmount')
-    return +amount
+    const amount: any = localStorage.getItem('favoritesAmount')
+    const num: number = +amount
+    return num
   } catch (err) {
     console.log(`Сведений о пользователе в localstorage нет: -> ${err}`)
     return 0

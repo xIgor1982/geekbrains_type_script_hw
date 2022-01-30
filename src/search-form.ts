@@ -125,6 +125,7 @@ export function renderSearchFormBlock(data: SearchFormData = initDateSearchFormB
   // const dateMaxEndFunc: Date = increaseDate(getDateEnd(data.checkin), 1);
   // const maxDate: number | null = 0;
 
+
   const dateStartFunc: Date = getDateStart(data.checkIn);
   const dateEndFunc: Date = getDateStart(dateStartFunc);
   const dateMaxEndFunc: Date = increaseDate(getDateEnd(data.checkIn), 1);
