@@ -89,7 +89,7 @@ const submitFormSearch = (event: SubmitEvent): void => {
   const form = document.forms[0]
   const {checkin, checkout, price} = form
 
-  const result:SearchFormData = {
+  const result: SearchFormData = {
     checkIn: new Date(checkin.value),
     checkOut: new Date(checkout.value),
     priceData: +price.value
@@ -119,7 +119,7 @@ const initDateSearchFormBlock: SearchFormData = {
 }
 
 //2. Функция поиска принимает как аргумент переменную интерфейса SearchFormData
-export function renderSearchFormBlock(data: SearchFormData = initDateSearchFormBlock) {
+export function renderSearchFormBlock(data: SearchFormData | any = initDateSearchFormBlock) {
   // const dateStartFunc: Date = getDateStart(data.checkin);
   // const dateEndFunc: Date = getDateStart(dateStartFunc);
   // const dateMaxEndFunc: Date = increaseDate(getDateEnd(data.checkin), 1);
@@ -191,7 +191,7 @@ export function renderSearchFormBlock(data: SearchFormData = initDateSearchFormB
 
 //отслеживание нажатия кнопки формы поиска
 const submitListener = (): void => {
-  const form = document.getElementById('search-form-block')
+  const form: HTMLFormElement | any = document.getElementById('search-form-block')
   try {
     form.addEventListener('submit', submitFormSearch)
   } catch (err) {
