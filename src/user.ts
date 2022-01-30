@@ -34,8 +34,10 @@ export class User {
 //1. Первая getUserData
 export const getUserData = (): User => {
   try {
-    const user: unknown = JSON.parse(localStorage.getItem('user'))
-    return new User(user['username'], user['avatarUrl'])
+    const user: {[key : string] : string} = JSON.parse(localStorage.getItem('user'))
+    const username:any = user['username']
+    const avatarUrl:any = user['avatarUrl']
+    return new User(username, avatarUrl)
   } catch (err) {
     console.log(`Сведений о пользователе в localstorage нет: -> ${err}`)
   }
