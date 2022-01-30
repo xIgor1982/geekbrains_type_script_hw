@@ -2,45 +2,133 @@ import {renderBlock} from './lib.js';
 import {getDateStart, getDateEnd, convertDate, increaseDate} from './utilites.js';
 
 //2. Создать интерфейс SearchFormData
+
+//для вариантов с 1 по 3
+// interface SearchFormData {
+//   checkin?: Date;
+//   checkout?: Date;
+//   price?: number;
+// }
+
+//для 4 варианта
 interface SearchFormData {
-  dateStart?: Date
-  dateEnd?: Date
-  maxPrice?: number
+  checkIn?: Date;
+  checkOut?: Date;
+  priceData?: number;
 }
 
 //2. Написать функцию-обработчик формы search
-const submitFormSearch = (event: Event): void => {
+const submitFormSearch = (event: SubmitEvent): void => {
   event.preventDefault()
-  const checkIn: Date = new Date(document.querySelector("input[name='checkin']")['value'])
-  const checkOut: Date = new Date(document.querySelector("input[name='checkout']")['value'])
-  const price: number = +document.querySelector("input[name='price']")['value']
 
-  const resultSearchFormData: SearchFormData = {
-    dateStart: checkIn,
-    dateEnd: checkOut,
-    maxPrice: price
+  // ------> 1 вариант поиска данных в форме
+
+  // const resultSearchFormData: SearchFormData = {
+  //   checkin: new Date(<'checkin'>(new FormData(event.target as HTMLFormElement)).get('checkin')),
+  //   checkout: new Date(<'checkout'>(new FormData(event.target as HTMLFormElement)).get('checkout')),
+  //   price: +<'price'>(new FormData(event.target as HTMLFormElement)).get('price')
+  // }
+  //
+  // console.log(resultSearchFormData)
+
+  // <------ 1 вариант
+
+  //--------------------------------------------------------------------------------------------
+
+  // ------> 2 вариант
+
+  // const searchNamesForm = ['checkin', 'checkout', 'price']
+  // const values: {[key : string] : string} = {}
+  //
+  // const form: HTMLFormElement = document.querySelector('form')
+  //
+  // searchNamesForm.forEach((el => {
+  //   const searchElForm: HTMLFormElement = form.querySelector(`[name=${el}]`)
+  //   values[el] = searchElForm.value
+  // }))
+  //
+  // const resultSearchData: SearchFormData = {
+  //   checkin: new Date(values['checkin']),
+  //   checkout: new Date(values['checkout']),
+  //   price: +values['price']
+  // }
+  //
+  // console.log('resultSearchData')
+  // console.log(resultSearchData)
+
+  // <------ 2 вариант
+
+  //--------------------------------------------------------------------------------------------
+
+  // ------> 3 вариант поиска данных в форме
+
+  // const form = document.querySelector('form')
+  // const fields = form.querySelectorAll('input')
+  // const values: {[key : string] : string} = {}
+  //
+  // fields.forEach(field => {
+  //   const {name, value} = field
+  //   values[name] = value
+  // })
+  //
+  // const result:SearchFormData = {
+  //   checkin: new Date(values['checkin']),
+  //   checkout: new Date(values['checkout']),
+  //   price: +values['price']
+  // }
+  //
+  // console.log('result')
+  // console.log(result)
+
+  // <------ 3 вариант
+
+  //--------------------------------------------------------------------------------------------
+
+  // ------> 4 вариант
+
+  const form = document.forms[0]
+  const {checkin, checkout, price} = form
+
+  const result:SearchFormData = {
+    checkIn: new Date(checkin.value),
+    checkOut: new Date(checkout.value),
+    priceData: +price.value
   }
 
-  console.log(resultSearchFormData)
+  console.log('result - v4')
+  console.log(result)
+
+  // <------ 4 вариант
 }
 
 //инициализация данных формы поиска
 const initDateStart: Date = increaseDate(new Date(), 1);
 const initDateEnd: Date = getDateEnd(initDateStart);
-const initPrice: number = 0;
+const initPrice: number | null = 0;
+
+// const initDateSearchFormBlock: SearchFormData = {
+//   checkin: initDateStart,
+//   checkout: initDateEnd,
+//   price: initPrice
+// }
 
 const initDateSearchFormBlock: SearchFormData = {
-  dateStart: initDateStart,
-  dateEnd: initDateEnd,
-  maxPrice: initPrice
+  checkIn: initDateStart,
+  checkOut: initDateEnd,
+  priceData: initPrice
 }
 
 //2. Функция поиска принимает как аргумент переменную интерфейса SearchFormData
 export function renderSearchFormBlock(data: SearchFormData = initDateSearchFormBlock) {
-  let dateStartFunc: Date = getDateStart(data.dateStart);
-  let dateEndFunc: Date = getDateStart(dateStartFunc);
-  let dateMaxEndFunc: Date = increaseDate(getDateEnd(data.dateStart), 1);
-  let maxDate: number = 0;
+  // const dateStartFunc: Date = getDateStart(data.checkin);
+  // const dateEndFunc: Date = getDateStart(dateStartFunc);
+  // const dateMaxEndFunc: Date = increaseDate(getDateEnd(data.checkin), 1);
+  // const maxDate: number | null = 0;
+
+  const dateStartFunc: Date = getDateStart(data.checkIn);
+  const dateEndFunc: Date = getDateStart(dateStartFunc);
+  const dateMaxEndFunc: Date = increaseDate(getDateEnd(data.checkIn), 1);
+  const maxDate: number | null = 0;
 
   renderBlock(
     'search-form-block',
@@ -101,7 +189,7 @@ export function renderSearchFormBlock(data: SearchFormData = initDateSearchFormB
 }
 
 //отслеживание нажатия кнопки формы поиска
-const submitListener = ():void => {
+const submitListener = (): void => {
   const form = document.getElementById('search-form-block')
   try {
     form.addEventListener('submit', submitFormSearch)
